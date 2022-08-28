@@ -5,10 +5,11 @@ from minio import Minio
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+app.config.from_prefixed_env()
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['MINIO'] = os.getenv("MINIO", "rpi.local:9000")
 app.config['PREFIX'] = os.getenv("MINIO_PREFIX",
-                                 "http://rpi.local:9000/test")
+                                 "rpi.local:9000/test")
 
 client = Minio(app.config['MINIO'],
                secure=False,
